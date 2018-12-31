@@ -1,0 +1,289 @@
+\documentclass{article}
+\usepackage[letterpaper, margin = 0.5 in]{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[mathscr]{euscript}
+\usepackage{tikz-cd}
+
+\title{Math 726 Spring 2018 Homework 1 Dr. Catalin Ciuperca}
+\author{Michael Marmorstein \vspace{0.2pt} (In coorespondence with Joe Bernstein and Megan Jensen)}
+\begin{document}
+\maketitle
+1. (Injective Dual of Schanuel's Lemma) 
+\newline
+Let $R$ be a ring and $M$ an $R$-Module.  Assume that we have the following two exact sequences of $R$-modules
+\newline
+\begin{center}
+\begin{tikzcd}
+0 \arrow[r] & M \arrow[r, "i"] & Q \\
+\end{tikzcd}
+\newline
+\begin{tikzcd}
+0 \arrow[r] & M' \arrow[r, "i'"] & Q' \\
+\end{tikzcd},
+\newline
+\end{center}
+Where $Q$ and $Q'$ are injective $R$-modules.
+Then 
+$$coker i \oplus Q' \cong coker i' \oplus Q $$
+
+\proof
+for convenience sake, denote $C= coker i, C' = coker i'$ 
+\newline
+Then we have the following short exact sequences:
+\newline
+\begin{tikzcd}
+ 0\arrow[r] & M\arrow{r}{i} & Q\arrow{r}{\pi} & C\arrow[r] & 0\\
+\end{tikzcd}
+\newline
+\begin{tikzcd}
+ 0\arrow[r] & M\arrow{r}{i'} & Q'\arrow{r}{\pi'} & C'\arrow[r] & 0\\
+\end{tikzcd}
+\newline
+Where $\pi:Q \rightarrow C$ is the natural projection $\pi(q) = q + i(M)$
+and similarly $\pi':Q \rightarrow C'$ is the natural projection $\pi(q') = q' + i'(M)$.
+
+To see that this is an exact sequence, note that $\pi$ and $\pi'$ are surjective (All quotient maps are).
+Also because $C=Q / im(i)$, then $ker \pi = im(i)$, which is exactly exactness at $Q$ in the above sequence.
+Exactness at $Q'$ follows by exactly the same reason.
+\newline
+\newline
+Now since Q' is an injective module, we know there must exist a map $\alpha$, such that $i' = \alpha \circ i$ In other words, the following diagram commutes:
+\newline
+\begin{tikzcd}
+ 0\arrow[r] & M \arrow[rd, "i'"] \arrow[r, "i"] & Q \arrow[d, dashed, "\alpha"]
+ \\
+& & Q'
+\end{tikzcd}
+\newline
+Now define a map $\psi: Q \rightarrow C \oplus Q'$ by $\psi(x) = (\pi(x), \alpha(x))$
+Since $\pi$ and $\alpha$ are both $R$- module homomorphisms, so is $\psi$ \newline
+We show $\psi$ is injective. If $\psi(x) = (0,0)$, then $\pi(x) = 0$, so $x \in ker(\pi)$; hence by exactness, $x \in i(M)$, which implies that $x = i(m)$ for some $m \in M$.  Also $\alpha(x) = 0$, so putting this together we get $i'(m) = \alpha(i(m))=\alpha(x)=0$ But because $i'$ is injective, we can deduce that $m=0$, so $x=i(m)=0$. Hence $ker(\psi) = 0$ so that $\psi$ is injective.
+\newline
+\newline
+Now we show that $coker(\psi) \cong C'$ 
+\newline
+Let $\phi : Q' \rightarrow coker(\psi)$ be the map
+$\phi(y)= (0,y) + \psi(Q)$. 
+This is an $R$-module Homomorphism.  We show that $Ker(\phi) = i'(M)$ and then apply the first isomorphism theorem.  
+\newline
+If $y\in ker(\phi)$, then we have $(0,y) \in \psi(Q)$, so there exists $x \in Q$ with $\pi(x) = 0$ and $\alpha(x)=y$.  Because $\pi(x)=0$, then $x\in ker (\pi)$, so $x = i(m)$ for some $m\in M$, by exactness of the first sequence.  Hence $y=\alpha(i(m)) = i'(m)$ hence $y \in i'(M)$. Hence $ker(\phi) \subset i'(M)$.
+\newline
+\newline
+ Conversely if $y \in i'(M)$, so that $y=(\alpha(i(m))$ for some $m\in M$, then $\psi(i(m))= (\pi(i(m)),\alpha(i(m))=(0,y)$ and since $i(m) \in Q$ this implies that $\phi(y) = \psi(Q)$, so that $y\in ker(\phi)$, implying that $ker(\phi) = i'(M)$
+ Now by the first isomorphism theorem we have:
+ $coker(\psi) \cong C'$ 
+\newline
+\newline
+We then have a short exact sequence:
+\newline
+\begin{tikzcd}
+ 0\arrow[r] & Q\arrow{r}{\psi} & (C\oplus Q')\arrow{r}{\pi} & C'\arrow[r] & 0\\
+\end{tikzcd}
+\newline
+and because Q is injective, this sequence splits and so we have that:
+$$C\oplus Q' \cong C'\oplus Q$$
+as desired. \qed
+\newpage
+2. (Generalized Schanuel's Lemma) \newline
+Let $R$ be a ring and let
+\begin{center}
+\begin{tikzcd}
+ 0\arrow[r] & K' \arrow[r,"i'"] & P'_n \arrow[r,"\varphi'_n"] & P'_{n-1} \arrow[r,"\varphi'_{n-1}"] & ... \arrow[r,"\varphi_1'"] & P'_0 \arrow[r,"\pi'"] & M \arrow[r] & 0
+\end{tikzcd}, and
+\newline
+\newline
+\begin{tikzcd}
+ 0\arrow[r] & K \arrow[r,"i"] & P_n \arrow[r,"\varphi_n"] & P_{n-1} \arrow[r,"\varphi_{n-1}"] & ... \arrow[r,"\varphi_1"] & P_0 \arrow[r,"\pi"] & M \arrow[r] & 0
+\end{tikzcd}
+\newline
+be exact sequences, where the $P_i, P'_i$ are projective R-Modules for each $i\in \{1,2,...,n\}$.  
+\end{center}
+Prove that
+\newline
+$K\oplus P'_n \oplus P_{n-1} \oplus P'_{n-2} .... \cong K' \oplus P_n \oplus P'_{n-1} \oplus P_{n-2} .... $
+\proof
+
+We use induction on $n$ If $n=0$, then we have
+\begin{center}
+\begin{tikzcd}
+0\arrow[r] & K \arrow[r] & P_0 \arrow[r, "\pi "]& M \arrow[r] & 0
+\end{tikzcd}
+\newline
+\begin{tikzcd}
+0\arrow[r] & K' \arrow[r] & P'_0 \arrow[r, "\pi'"]& M \arrow[r] & 0
+\end{tikzcd}
+\newline
+\end{center}
+But this case is Schanuel's lemma, since K is the kernel of the map $\pi$ and K' is the kernel of $\pi'$.  Hence we know we have the isomorphism $K\oplus P'_0 \cong K' \oplus P_0$ (Proved in class).
+\newline
+\newline
+Now we suppose the result is true for sequences of length less than n and suppose we have two sequences of length n:
+\newline
+\newline
+Then we may break each of these sequences into two sequences by considering $K_2= Ker(\varphi_{n-1})$ to obtain these two exact sequences:
+\newline
+\begin{tikzcd}
+ 0\arrow[r] & K_2 \arrow[r,"i"]  & P_{n-1} \arrow[r,"\varphi_{n-1}"] & ... \arrow[r,"\varphi_1"] & P_0 \arrow[r,"\pi"] & M \arrow[r] & 0
+\end{tikzcd}
+\newline
+\begin{tikzcd}
+ 0\arrow[r] & K \arrow[r,"i"] & P_n \arrow[r,"\varphi_n"] & K_2 \arrow[r,"i"]  & 0
+\end{tikzcd}
+\newline
+Similarly, breaking the other length n exact sequence we will have:
+\newline
+\begin{tikzcd}
+ 0\arrow[r] & K'_2 \arrow[r,"i'"]  & P'_{n-1} \arrow[r,"\varphi'_{n-1}"] & ... \arrow[r,"\varphi'_1"] & P_0 \arrow[r,"\pi'"] & M \arrow[r] & 0
+\end{tikzcd}
+\newline
+\begin{tikzcd}
+ 0\arrow[r] & K' \arrow[r,"i'"] & P'_n \arrow[r,"\varphi'_n"] & K'_2 \arrow[r,"i'"]  & 0
+\end{tikzcd}
+\newline
+But the two longer sequences are both of length less than n and satisfy the induction hypothesis, so we have: \newline
+$$K_2\oplus P'_{n-1} \oplus P_{n-2} .... \cong K'_2 \oplus P_{n-1} \oplus P'_{n-2} .... $$
+\newline
+Abbreviating $A= P'_{n-1} \oplus P_{n-2} ....$    and    $B= P_{n-1} \oplus P'_{n-2} ....$ we can rewrite this:
+$$K_2\oplus A \cong K'_2 \oplus B $$
+\newline
+Then note that we can modify our short exact sequences to get the following exact sequences:
+\newline
+\begin{tikzcd}
+ 0\arrow[r] & K' \arrow[r,"{i'\oplus 0}"] & P'_n \oplus B \arrow[r,"\varphi'_n \oplus id"] & K'_2 \oplus B \arrow[r,"i'"]  & 0
+\end{tikzcd}
+\newline
+\begin{tikzcd}
+ 0\arrow[r] & K \arrow[r,"{i \oplus 0}"] & P_n \oplus A \arrow[r,"\varphi_n \oplus id"] & K_2 \oplus A \arrow[r,"i"]  & 0
+\end{tikzcd} ,
+\newline
+To see these are exact note that $(\varphi_n \oplus id) (i(m),0) = (0,0)$ and conversely if $(\varphi_n \oplus id(a,b)) = (0,0))$, then $b=0$ and $a \in \ker(\varphi_n) = i(K)$ 
+\newline
+\newline
+Now we apply the isomorphism $K_2\oplus A \cong K'_2 \oplus B $, to the top sequence (I am abusing notation by not explicitly mentioning the isomorphism in the maps),
+\newline
+\begin{tikzcd}
+ 0\arrow[r] & K' \arrow[r,"{i'\oplus 0}"] & P'_n \oplus B \arrow[r,"\varphi'_n \oplus id"] & K_2 \oplus A \arrow[r,"i'"]  & 0
+\end{tikzcd}
+\newline
+\begin{tikzcd}
+ 0\arrow[r] & K \arrow[r,"{i\oplus 0}"] & P_n \oplus A \arrow[r,"\varphi_n \oplus id"] & K_2 \oplus A \arrow[r,"i"]  & 0
+\end{tikzcd}
+\newline
+Now note that the middle node is the direct sum of projective R-Modules, and thus is a projective R-Module.  Hence we can apply Schanuel's lemma here to obtain
+$K' \oplus P_n \oplus A \cong K \oplus P_n' \oplus B$, which is exactly 
+$K\oplus P'_n \oplus P_{n-1} \oplus P'_{n-2} .... \cong K' \oplus P_n \oplus P'_{n-1} \oplus P_{n-2} .... $, which is what we wanted.
+\qed
+\newpage
+3.
+Let $R$ be a ring and $M$ an $R$-module.  Assume that $M$ has an injective resolution $\mathscr{I}$ of length n. Let
+\begin{center}
+\begin{tikzcd}
+ 0\arrow[r] & M\arrow{r}{\psi'_0} & Q'_0 \arrow{r}{\psi'_1} & Q'_1\arrow{r}{\psi'_2}& Q'_2\arrow{r}{\psi'_3} & ....\\
+\end{tikzcd}
+\end{center}
+be another injective resolution of M.  
+Prove that coker ${\psi'_{n-1}}$ is injective and
+\begin{center}
+\begin{tikzcd}
+0\arrow[r] & M\arrow{r}{\psi'_0} & Q'_0 \arrow{r}{\psi'_1} & Q'_1\arrow{r}{\psi'_2}& Q'_2\arrow{r}{\psi'_3}& ...\arrow{r}&Q'_{n-2}\arrow{r}{\psi'_{n-1}}&Q'_{n-1}\arrow{r}&{coker\psi'_{n-1}}\arrow{r}&0\\
+\end{tikzcd}
+\end{center}
+Is an injective resolution of M.
+\proof
+
+We proceed by induction:
+for n=0, we know that $M$ has an injective resolution $\mathscr{I}$ of length 0.  But this means that we have a sequence:
+\begin{tikzcd}
+ 0\arrow[r] & M\arrow{r}{\psi_0} & Q_0 \arrow{r}&0\\
+\end{tikzcd}
+Which means that $M$ is an injective module because $M\cong Q_0$ and $Q_0$ is injective.
+\newline
+But also note that $M$ is the cokernel of the map ${\psi'_{-1}}$, so $coker{\psi'_{-1}}$ is injective and 
+\newline
+\begin{tikzcd}
+ 0\arrow[r] & M \arrow[r] &coker{\psi'_{-1}} \arrow[r]& 0\\ 
+\end{tikzcd}
+\newline
+is an injective resolution of M.
+\newline
+Now suppose the statement holds for any module that has an injective resolution of length n-1, and suppose that M has an injective resolution $\mathscr{I}$ of length n. Say,
+\begin{center}
+\begin{tikzcd}
+ 0\arrow[r] & M\arrow{r}{\psi_0} & Q_0 \arrow{r}{\psi_1} & Q_1\arrow{r}{\psi_2}& Q_2 ... \arrow{r}{\psi_{n-1}}& Q_{n-1}\arrow{r}{\psi_n}& Q_n\arrow{r} &0 \\
+\end{tikzcd}
+\end{center}
+By the dual to Schanuel's Lemma that we proved in problem 1, we can say $$coker{\psi_0}' \oplus Q_0 \cong coker{\psi_0} \oplus Q'_0$$
+We can also form the following exact sequence:
+\begin{center}
+\begin{tikzcd}
+ 0\arrow[r] & Q'_0\oplus coker (\psi_0)\arrow{r}{id \oplus \psi_1} & Q'_0 \oplus Q_1\arrow{r}{\psi_2|_{Q_1}}& Q_2 ... \arrow{r}{\psi_{n-1}}& Q_{n-1}\arrow{r}{\psi_n}& Q_n\arrow{r} &0 \\
+\end{tikzcd}
+\end{center}
+the induced map $\psi_1:coker (\psi_0) \rightarrow  Q_1$ is well defined because of exactness at $Q_0$
+and also we can modify the $Q'$ sequence in the same way, and apply Schanuel's to the beginning of the sequence to obtain:
+\newline
+\begin{tikzcd}
+ 0\arrow[r] & Q'_0\oplus coker (\psi_0)\arrow{r}{id \oplus \psi_1} & Q_0 \oplus Q'_1\arrow{r}{\psi_2|_{Q_1}}& Q'_2\arrow{r}{\psi'_3}& ...\arrow{r}&Q'_{n-2}\arrow{r}{\psi'_{n-1}}&Q'_{n-1}\arrow{r}&{coker\psi'_{n-1}}\arrow{r}&0\\
+\end{tikzcd}
+\newline
+Because the former sequence is an injective resolution of $Q'_0\oplus coker (\psi_0)$ of length $n-1$, then we may apply the induction hypothesis to conclude that ${coker\psi'_{n-1}}$ is injective.
+This implies that
+\newline
+\begin{tikzcd}
+0\arrow[r] & M\arrow{r}{\psi'_0} & Q'_0 \arrow{r}{\psi'_1} & Q'_1\arrow{r}{\psi'_2}& Q'_2\arrow{r}{\psi'_3}& ...\arrow{r}&Q'_{n-2}\arrow{r}{\psi'_{n-1}}&Q'_{n-1}\arrow{r}&{coker\psi'_{n-1}}\arrow{r}&0\\
+\end{tikzcd}
+\newline
+is an injective resolution, because all the $Q'_is$ and $coker\psi'_{n-1}$ are injective. \qed
+\newpage
+4. Let R be a commutative ring and I an ideal of R
+\newline
+a) Assume that $R/I$ is a flat $R$-module.  Prove that $I = I^2$
+\newline
+Proof:
+Consider the sequence:
+\begin{tikzcd}
+ 0\arrow[r] & I \arrow{r}{i} & R\arrow{r}{\pi} & R/I \arrow[r] & 0\\
+\end{tikzcd}
+\newline 
+This sequence is easily seen to be exact since the inclusion is injective, the quotient is surjective, and the kernel of $\pi$ is exactly the ideal $I$, which is embedded into R via $i$.
+Since $R/I$ is flat we may tensor the whole sequence on the left by $R/I$ keeping track of the appropriate maps. (Note, I will suppress the ring R and write $A \otimes B$ for $A \otimes_R B$)
+\newline
+\begin{tikzcd}
+ 0\arrow[r] & R/I \otimes I \arrow{r}{1\otimes i} & R/I \otimes R\arrow{r}{1 \otimes \pi} & R/I \otimes R/I \arrow[r] & 0\\
+\end{tikzcd}
+\newline
+We will now define a couple of isomorphisms to simplify these products:
+\newline
+Consider the map from $R/I \times R$ to $R/I$ given by $(a+ I , b) \mapsto ab + I$.  This map is R- bilinear, so we may lift the map to a R-module homomorphism from the tensor product $\phi: R/I \otimes R \rightarrow R/I$ by $\phi(a+ I \otimes b) = ab + I$ \newline
+ $\phi$ is one-to-one and onto, so it is an R-Module isomorphism.
+\newline
+Now consider the map from $R/I \times I$ to $I/I^2$ given by $(a+ I, x) \mapsto ax + I^2$ for $x \in I$. Again this is a bilinear map, since $(ra+ b + I, x) \mapsto r(ax + I^2) + (bx + I^2)$ and $(a+ I, rx+y) \mapsto r(ax+I^2)+(ay+I^2)$.  Hence it extends to an R-module homomorphism of the tensor product
+$\psi: R/I \otimes I \rightarrow I/I^2$ given by $\psi(a+ I \otimes x) = ax + I^2$.
+\newline
+\newline
+ We show $\psi$ is an isomorphism.
+If $\psi(a+ I \otimes x) = I^2$, then $ax \in I^2$, then we have $ax = \sum_{k=1}^n ({b_k}{c_k})$, where $b_k$, $c_k \in I$.  Then we may write $(a+ I \otimes x)= 1+ I \otimes ax =  \sum_{k=1}^n(1+I)\otimes ({b_k}{c_k}) = \sum_{k=1}^n(b_k+I)\otimes ({c_k}) = 0$ since the $b_k \in I$.
+This shows that $\psi$ is injective.
+Since for any $b+ I^2 \in I/I^2 $, $1+ I \otimes b \mapsto b+I^2$, we have surjectivity as well.
+\newline
+We now have the following diagram:
+\newline
+\begin{tikzcd}
+ 0\arrow[r] & R/I \otimes I \arrow{r}{1\otimes i}\arrow[leftrightarrow]{d}{\psi} & R/I \otimes R\arrow{r}{1 \otimes \pi}\arrow[leftrightarrow]{d}{\phi} & R/I \otimes R/I \arrow[r] & 0\\
+ &I/I^2\arrow[dotted]{r}&R/I&&
+\end{tikzcd}
+\newline
+The map $\phi \circ (1\otimes i) \circ \psi^{-1}:I/I^2 \rightarrow R/I$ is a composition of injective maps and is thus injective.  Now for all, $x\in I$ $(\phi \circ (1\otimes i) \circ \psi^{-1})(x+ I^2) = x+ I = I$ So by injectivity, $x +  I^2 = I^2$, showing $I \subset I^2$, and $I^2 \subset I$ is always true since I is an ideal.  Together, we have $I = I^2$ as desired. \qed
+\newline
+\newline
+b.) Assume that $R/I$ is a projective $R$-module.  Prove there exists $e\in R$ idempotent such that $I = (e)$
+\newline
+\newline
+since $R/I$ is a projective $R$-module, than the sequence from the last parts splits, so there exists an isomorphism $\phi: R \rightarrow R/I \oplus I$
+if $\phi(1) = (a+I,e)$, We show e generates I. Let $m\in I$ By surjectivity of the map $\phi$, we know there exists some $n\in R$ such that
+$\phi(n)= (1,m)$.  Then 
+$(1,m)=\phi(n)=n\phi(1)=(na+I,ne)$ so $ne=m$ and $m\in (e)$. This shows that $I = (e)$.  But then $I^2 = (e^2)$, and since $R/I$ is projective it is flat and we can use the conclusion of the last problem, so that we have $I^2=I$, and hence $e=re^2$ for some $r\in R$.
+so $(e)\subset(re)$, But also $(re)^2 = r^2e^2=r(re^2)=re$, showing that $e=re=(re)^2$ is idempotent and generates $I$. \qed
+\end{document}
